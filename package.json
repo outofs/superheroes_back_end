@@ -1,0 +1,24 @@
+{
+  "name": "superheroes_back_end",
+  "version": "1.0.0",
+  "description": "Server part for Superheroes Test Task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/outofs/superheroes_back_end.git"
+  },
+  "author": "Oleksandr Hirych",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/outofs/superheroes_back_end/issues"
+  },
+  "homepage": "https://github.com/outofs/superheroes_back_end#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.5.2"
+  }
+}
