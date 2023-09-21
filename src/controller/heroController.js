@@ -1,6 +1,7 @@
 const heroService = require('../services/heroService'); 
 
 
+exports.getManyHeroes = heroService.getMany();
 
 exports.getHeroById = heroService.getOne();
 

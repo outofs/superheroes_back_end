@@ -3,7 +3,7 @@ const heroController = require('../controller/heroController')
 
 const router = express.Router();
 
-// router.get("/", heroController.read);
+router.get("/", heroController.getManyHeroes);
 router.get("/:id", heroController.getHeroById);
 router.post("/", heroController.createHero);
 
