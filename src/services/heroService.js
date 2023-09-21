@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync');
 
 exports.getMany = () => catchAsync(async (req, res) => {
   const page = Number(req.query.page) || 1;
-  const perPage = Number(req.query.perPage) || 5;
+  const perPage = 5;
 
   const totalHeroesQuantity = await Hero.find().count();
 
@@ -16,8 +16,7 @@ exports.getMany = () => catchAsync(async (req, res) => {
   }
 
   res.status(200).json({
-    status: 'success',
-    data: heroes,
+    heroes: heroes,
     totalHeroesQuantity,
   });
 })
@@ -25,17 +24,14 @@ exports.getMany = () => catchAsync(async (req, res) => {
 exports.getOne = () => catchAsync(async (req, res) => {
   const hero = await Hero.findById(req.params.id);
 
-  
+
   console.log(hero);
 
   if (!hero) {
     res.status(404).send("Not found");
   }
 
-  res.status(200).json({
-    status: 'success',
-    data: hero,
-  });
+  res.status(200).json(hero);
 });
 
 
@@ -55,10 +51,7 @@ exports.createOne = () => catchAsync(async (req, res) => {
 
   const newHero = await Hero.create(req.body)
 
-  res.status(201).json({
-    status: 'success',
-    data: newHero,
-  });
+  res.status(201).json(newHero);
 });
 
 exports.deleteOne = () => catchAsync(async (req, res) => {
@@ -85,8 +78,5 @@ exports.updateOne = () =>
       res.status(404).send("Not found");
     }
 
-    res.status(200).json({
-      status: 'success',
-      data: hero,
-    });
+    res.status(200).json(hero);
   });
