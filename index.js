@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-process.on('uncaughtException', (err) => {
-  console.log('Uncaught exception! Shutting down...');
-  console.log(err);
-  process.exit(1);
-});
+// process.on('uncaughtException', (err) => {
+//   console.log('Uncaught exception! Shutting down...');
+//   console.log(err);
+//   process.exit(1);
+// });
 
 dotenv.config();
 const app = require('./app');
@@ -36,17 +36,17 @@ app.listen(port, () => {
   console.log(`Server is running on localhost:${port}`);
 });
 
-process.on('unhandledRejection', (err) => {
-  console.log(err.name, err.message);
-  console.log('Unhandled rejection! Shutting down...');
-  server.close(() => {
-    process.exit(1);
-  });
-});
+// process.on('unhandledRejection', (err) => {
+//   console.log(err.name, err.message);
+//   console.log('Unhandled rejection! Shutting down...');
+//   server.close(() => {
+//     process.exit(1);
+//   });
+// });
 
-process.on('SIGTERM', () => {
-  console.log('SIGTERM RECEIVED. Shutting down gracefully');
-  server.close(() => {
-    console.log('Process terminated!');
-  });
-});
+// process.on('SIGTERM', () => {
+//   console.log('SIGTERM RECEIVED. Shutting down gracefully');
+//   server.close(() => {
+//     console.log('Process terminated!');
+//   });
+// });
