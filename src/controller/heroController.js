@@ -24,6 +24,8 @@ exports.uploadHeroImages = upload.fields([
 exports.resizeHeroImages = catchAsync(async (req,res, next) => {
   if (!req.files.images) return next();
 
+  console.log(req.files);
+
   req.body.images = [];
 
   await Promise.all(

@@ -6,7 +6,12 @@ const router = express.Router();
 
 router.get("/", heroController.getManyHeroes);
 router.get("/:id", heroController.getHeroById);
-router.post("/", heroController.createHero);
+router.post(
+  "/",
+  heroController.uploadHeroImages,
+  heroController.resizeHeroImages,
+  heroController.createHero,
+);
 
 router.patch(
   "/:id",
