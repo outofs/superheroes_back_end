@@ -69,6 +69,9 @@ exports.deleteOne = () => catchAsync(async (req, res) => {
 
 exports.updateOne = () =>
   catchAsync(async (req, res) => {
+    console.log(req.body);
+    console.log(req.file);
+
     const hero = await Hero.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
