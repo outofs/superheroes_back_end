@@ -1,5 +1,5 @@
-const Hero = require('../models/heroModel');
-const catchAsync = require('../utils/catchAsync');
+const Hero = require("../models/heroModel");
+const catchAsync = require("../utils/catchAsync");
 
 exports.getMany = () => catchAsync(async (req, res) => {
   const page = Number(req.query.page) || 1;
@@ -62,7 +62,7 @@ exports.deleteOne = () => catchAsync(async (req, res) => {
   }
 
   res.status(204).json({
-    status: 'success',
+    status: "success",
     data: null,
   });
 });

@@ -1,26 +1,26 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const heroSchema = new mongoose.Schema({
   nickname: {
     type: String,
-    required: [true, 'A superhero must have a nickname'],
+    required: [true, "A superhero must have a nickname"],
     unique: true,
   },
   real_name: {
     type: String,
-    required: [true, 'A superhero must have a real name']
+    required: [true, "A superhero must have a real name"]
   },
   origin_description: {
     type: String,
-    required: [true, 'Please provide a description'],
+    required: [true, "Please provide a description"],
   },
   superpowers: [{
     type: String,
-    required: [true, 'A superhero must have a superpower']
+    required: [true, "A superhero must have a superpower"]
   }],
   catch_phrase: {
     type: String,
-    required: [true, 'A superhero must have a catch phrase']
+    required: [true, "A superhero must have a catch phrase"]
   },
   images: [{
     type: String,
@@ -28,6 +28,6 @@ const heroSchema = new mongoose.Schema({
   }],
 });
 
-const Hero = mongoose.model('Hero', heroSchema);
+const Hero = mongoose.model("Hero", heroSchema);
 
 module.exports = Hero;
