@@ -1,13 +1,13 @@
-const multer = require('multer');
-const sharp = require('sharp');
+const multer = require("multer");
+const sharp = require("sharp");
 
-const heroService = require('../services/heroService');
-const catchAsync = require('../utils/catchAsync');
+const heroService = require("../services/heroService");
+const catchAsync = require("../utils/catchAsync");
 
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, callback) => {
-  if (file.mimetype.startsWith('image')) {
+  if (file.mimetype.startsWith("image")) {
     callback(null, true);
   } else
     callback(
@@ -18,13 +18,11 @@ const multerFilter = (req, file, callback) => {
 const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
 
 exports.uploadHeroImages = upload.fields([
-  { name: 'images', maxCount: 5 },
+  { name: "images", maxCount: 5 },
 ]);
 
-exports.resizeHeroImages = catchAsync(async (req,res, next) => {
+exports.resizeHeroImages = catchAsync(async (req, res, next) => {
   if (!req.files.images) return next();
-
-  console.log(req.files);
 
   req.body.images = [];
 
@@ -34,7 +32,7 @@ exports.resizeHeroImages = catchAsync(async (req,res, next) => {
 
       await sharp(file.buffer)
         .resize(1000, 1000)
-        .toFormat('jpeg')
+        .toFormat("jpeg")
         .jpeg({ quality: 90 })
         .toFile(`public/img/heroes/${imageFilename}`);
 
