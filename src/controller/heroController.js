@@ -3,6 +3,8 @@ const sharp = require("sharp");
 
 const heroService = require("../services/heroService");
 const catchAsync = require("../utils/catchAsync");
+const { sendFile } = require('../utils/AWSclient');
+
 
 const multerStorage = multer.memoryStorage();
 
@@ -30,11 +32,13 @@ exports.resizeHeroImages = catchAsync(async (req, res, next) => {
     req.files.images.map(async (file, i) => {
       const imageFilename = `hero-${req.params.id}-${Date.now()}-${i + 1}.jpeg`;
 
-      await sharp(file.buffer)
+      const buffer = await sharp(file.buffer)
         .resize(1000, 1000)
         .toFormat("jpeg")
-        .jpeg({ quality: 90 })
-        .toFile(`public/img/heroes/${imageFilename}`);
+        .jpeg({ quality: 80 })
+        .toBuffer();
+
+      await sendFile(imageFilename, buffer, file.mimetype);
 
       req.body.images.push(imageFilename);
     })
