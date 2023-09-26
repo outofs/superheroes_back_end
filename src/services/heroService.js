@@ -1,5 +1,6 @@
 const Hero = require("../models/heroModel");
 const catchAsync = require("../utils/catchAsync");
+const { makeTempImgUrl, deleteFile } = require('../utils/AWSclient');
 
 exports.getMany = () => catchAsync(async (req, res) => {
   const page = Number(req.query.page) || 1;
@@ -15,6 +16,16 @@ exports.getMany = () => catchAsync(async (req, res) => {
     res.status(404).send("Not found");
   }
 
+  for (const hero of heroes) {
+    const heroImgsUrl = hero.images.map(async (img) => {
+      return await makeTempImgUrl(img);
+    });
+
+    const result = await Promise.all(heroImgsUrl);
+
+    hero.images = result;
+  }
+
   res.status(200).json({
     heroes: heroes,
     totalHeroesQuantity,
@@ -24,12 +35,17 @@ exports.getMany = () => catchAsync(async (req, res) => {
 exports.getOne = () => catchAsync(async (req, res) => {
   const hero = await Hero.findById(req.params.id);
 
-
-  console.log(hero);
-
   if (!hero) {
     res.status(404).send("Not found");
   }
+
+  const heroImgsUrl = hero.images.map(async (img) => {
+    return await makeTempImgUrl(img);
+  });
+
+  const result = await Promise.all(heroImgsUrl);
+
+  hero.images = result;
 
   res.status(200).json(hero);
 });
@@ -61,6 +77,12 @@ exports.deleteOne = () => catchAsync(async (req, res) => {
     res.status(404).send("Not found");
   }
 
+  const deletingImgs = hero.images.map(async (img) => {
+    return await deleteFile(img);
+  });
+
+  await Promise.all(deletingImgs);
+
   res.status(204).json({
     status: "success",
     data: null,
@@ -69,9 +91,6 @@ exports.deleteOne = () => catchAsync(async (req, res) => {
 
 exports.updateOne = () =>
   catchAsync(async (req, res) => {
-    console.log(req.body);
-    console.log(req.file);
-
     const hero = await Hero.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
